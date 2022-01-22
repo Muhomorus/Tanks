@@ -1,5 +1,4 @@
 import pygame
-import os
 
 
 pygame.init()
@@ -23,7 +22,7 @@ def levelis(q):
 def start():
     pygame.init()
     pygame.display.set_caption('q1')
-    size = width, height = 700, 570
+    size = 700, 570
     screen = pygame.display.set_mode(size)
 
 
