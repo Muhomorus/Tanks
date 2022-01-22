@@ -29,4 +29,4 @@ def start():
                 elif pygame.Rect(170, 160, 520, 120).collidepoint(event.pos):
                     return 2
                 if pygame.Rect(170, 440, 520, 120).collidepoint(event.pos):
-                    pass
+                    return 3
