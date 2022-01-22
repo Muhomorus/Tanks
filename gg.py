@@ -7,7 +7,7 @@ def start():
     pygame.init()
     pygame.display.set_caption('q1')
     running_for_main_window = True
-    size = width, height = 700, 700
+    size = 700, 700
     screen = pygame.display.set_mode(size)
     font = pygame.font.SysFont(None, 150)
     screen.fill((200, 255, 200))
