@@ -9,7 +9,7 @@ def start():
     running_for_main_window = True
     size = 700, 700
     screen = pygame.display.set_mode(size)
-    font = pygame.font.SysFont(None, 150)
+    font = pygame.font.SysFont('', 150)
     screen.fill((200, 255, 200))
     pygame.draw.rect(screen, (0, 100, 0), pygame.Rect(10, 10, 520, 120), 2)
     pygame.draw.rect(screen, (0, 100, 0), pygame.Rect(170, 160, 520, 120), 2)
@@ -26,6 +26,6 @@ def start():
                 if pygame.Rect(10, 10, 520, 120).collidepoint(event.pos):
                     return 4
                 elif pygame.Rect(170, 160, 520, 120).collidepoint(event.pos):
-                    return 2
+                    return 5
                 if pygame.Rect(170, 440, 520, 120).collidepoint(event.pos):
                     return 3

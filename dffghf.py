@@ -177,14 +177,11 @@ def red():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if board.render(screen)[0].collidepoint(event.pos):
                     flag1 = False
-                    print(1)
                     name = "wall2.png"
                 if board.render(screen)[1].collidepoint(event.pos):
-                    print(3)
                     name = "wall3.png"
                     flag1 = False
                 if board.render(screen)[2].collidepoint(event.pos):
-                    print(4)
                     name = "wall4.png"
                     flag1 = False
                 if flag1:
@@ -195,7 +192,3 @@ def red():
         board.render(screen)
         board.render_1(screen)
         pygame.display.flip()
-
-    pygame.quit()
-
-
