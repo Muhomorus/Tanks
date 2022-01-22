@@ -16,7 +16,6 @@ map = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
 map_for_bild = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 2, 3, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 2, 3, 2, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0], [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 
-all_sprites = pygame.sprite.Group()
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
@@ -332,7 +331,7 @@ wall2 = load_image('wall2.png')
 wall3 = load_image('wall3.png')
 wall4 = load_image('wall4.png')
 
-def create_map():
+def create_map(screen):
     for index_i, i in enumerate(map_for_bild):
         for index_j, j in enumerate(i):
             if map_for_bild[index_i][index_j] == 2:
@@ -342,7 +341,7 @@ def create_map():
                 screen.blit(wall3, (index_j * 30 + 50, index_i * 30 + 50))
 
 
-def create_leaves():
+def create_leaves(screen):
     for index_i, i in enumerate(map_for_bild):
         for index_j, j in enumerate(i):
             if map_for_bild[index_i][index_j] == 4:
@@ -363,22 +362,20 @@ def create_leaves():
 
 
 
-tank = Tank(7, 10, 100, 2, 'tank1.png', 100, 10, 1)
-tank2 = Tank(7, 10, 100, 2, 'tank.png', 100, 10, 2, pos_x=50, pos_y=50)
+
 
 frame = load_image('frame2p.png')
-
-if __name__ == '__main__':
+sound1 = pygame.mixer.Sound('blast_sound.mp3')
+sound2 = pygame.mixer.Sound('blast_sound1.mp3')
+def pvp():
+    global tank, tank2, all_sprites
     pygame.init()
 
-
-    sound1 = pygame.mixer.Sound('blast_sound.mp3')
-    sound2 = pygame.mixer.Sound('blast_sound1.mp3')
-
-    size = width, height = 700, 700
+    tank = Tank(7, 10, 100, 2, 'tank1.png', 100, 10, 1)
+    tank2 = Tank(7, 10, 100, 2, 'tank.png', 100, 10, 2, pos_x=50, pos_y=50)
+    size = 700, 700
     screen = pygame.display.set_mode(size)
-
-    create_map()
+    all_sprites = pygame.sprite.Group()
 
     running = True
     fps = 120
@@ -415,7 +412,7 @@ if __name__ == '__main__':
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                return 1
 
             if event.type == MYEVENTTYPE:
                 if tank.max_ammunition != tank.ammunition:
@@ -483,23 +480,23 @@ if __name__ == '__main__':
             sound1.play()
             button2 = False
 
-        create_map()
+        create_map(screen)
         if tank.hp > 0:
             screen.blit(tank.tank, tank.get_pos())
         else:
-            running = False
             print('ПОБЕДТЛ ИГРОК 2')
+            return 1
         if tank2.hp > 0:
             screen.blit(tank2.tank, tank2.get_pos())
         else:
-            running = False
             print('ПОБЕДТЛ ИГРОК 1 ')
+            return 1
 
 
         all_sprites.draw(screen)
         all_sprites.update()
 
-        create_leaves()
+        create_leaves(screen)
         text = font.render(str(tank2.hp) + '/' + str(tank2.max_hp), True, pygame.Color('red'))
         screen.blit(text, (100, 10))
         text = font.render(str(tank.hp) + '/' + str(tank.max_hp), True, pygame.Color('red'))
