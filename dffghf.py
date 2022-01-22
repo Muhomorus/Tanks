@@ -68,8 +68,7 @@ class Board:
             jo.append([-1 for _ in range(5)] + i + [-1 for _ in range(5)])
         for i in range(5):
             jo.append([-1 for _ in range(70)])
-        print(jo)
-        print(self.colour)
+        return jo
 
     def get_cell(self, mouse_pos):
         x = (((self.width * self.cell_size) - (mouse_pos[0] - self.left)) // self.cell_size) - (self.width - 1)
@@ -162,25 +161,19 @@ def load_image(name, colorkey=None):
     return image
 
 
-class Main_window(Board):
-    pass
-
-
-if __name__ == '__main__':
+def red():
     flag1 = True
     pygame.init()
-    size = width, height = 700, 700
+    size = 700, 700
     screen = pygame.display.set_mode(size)
     board = Board(20, 20)
     running = True
-    pos = 50, 50
     name = False
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
-                board.fffffdfffdffddd()
+                return 1, board.fffffdfffdffddd(), board.colour
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if board.render(screen)[0].collidepoint(event.pos):
                     flag1 = False
@@ -203,7 +196,6 @@ if __name__ == '__main__':
         board.render_1(screen)
         pygame.display.flip()
 
-        pygame.display.flip()
-pygame.quit()
+    pygame.quit()
 
 

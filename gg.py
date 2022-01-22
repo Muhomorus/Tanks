@@ -24,7 +24,7 @@ def start():
                 return 0
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.Rect(10, 10, 520, 120).collidepoint(event.pos):
-                    pass
+                    return 4
                 elif pygame.Rect(170, 160, 520, 120).collidepoint(event.pos):
                     return 2
                 if pygame.Rect(170, 440, 520, 120).collidepoint(event.pos):

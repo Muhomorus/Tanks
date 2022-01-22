@@ -649,9 +649,7 @@ def game():
         Энтер.
     '''
     enemys.append(Enemy(50, 50, 15))
-    print(enemys)
     while running:
-        print(enemys)
         screen.fill(pygame.Color('gray'))
         screen.blit(frame, (0, 0))
 
