@@ -416,7 +416,6 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                print('хуй')
 
             if event.type == MYEVENTTYPE:
                 if tank.max_ammunition != tank.ammunition:
