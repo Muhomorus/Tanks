@@ -410,7 +410,7 @@ if __name__ == '__main__':
         Энтер.
     '''
     while running:
-        screen.fill(pygame.Color('purple'))
+        screen.fill(pygame.Color('grey'))
         screen.blit(frame, (0, 0))
 
         for event in pygame.event.get():
