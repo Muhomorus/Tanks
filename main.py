@@ -16,8 +16,7 @@ map = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
 map_for_bild = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 4, 0, 0, 4, 4, 0, 0, 0, 0, 0, 4, 0, 4, 4, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 
-all_sprites = pygame.sprite.Group()
-all_bonus = pygame.sprite.Group()
+
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
@@ -331,7 +330,9 @@ class Enemy(pygame.sprite.Sprite):
                         if self.rect[1] == tank.get_pos()[-1]:
                             self.shot()
         if self.hp == 0:
-            enemys.append(Enemy(20, 20, 10))
+            enemys[0].kill()
+            del enemys[0]
+            enemys.append(Enemy(50, 50, 15))
             self.kill()
 
 
@@ -566,7 +567,7 @@ wall2 = load_image('wall2.png')
 wall3 = load_image('wall3.png')
 wall4 = load_image('wall4.png')
 
-def create_map():
+def create_map(screen):
     for index_i, i in enumerate(map_for_bild):
         for index_j, j in enumerate(i):
             if map_for_bild[index_i][index_j] == 2:
@@ -576,7 +577,7 @@ def create_map():
                 screen.blit(wall3, (index_j * 30 + 50, index_i * 30 + 50))
 
 
-def create_leaves():
+def create_leaves(screen):
     for index_i, i in enumerate(map_for_bild):
         for index_j, j in enumerate(i):
             if map_for_bild[index_i][index_j] == 4:
@@ -596,28 +597,32 @@ def create_leaves():
 
 
 
-tank = Tank(10, 10, 100, 2, 'tank1.png', 100, 10)
 
 frame = load_image('frame.png')
+pygame.init()
 
+sound1 = pygame.mixer.Sound('blast_sound.mp3')
+sound2 = pygame.mixer.Sound('blast_sound1.mp3')
 
-
-if __name__ == '__main__':
+def game():
+    global enemys, tank, all_bonus, all_sprites
+    all_sprites = pygame.sprite.Group()
+    all_bonus = pygame.sprite.Group()
+    for i in enemys:
+        i.kill()
+    enemys = []
     pygame.init()
-
-
-    sound1 = pygame.mixer.Sound('blast_sound.mp3')
-    sound2 = pygame.mixer.Sound('blast_sound1.mp3')
+    tank = Tank(10, 10, 100, 2, 'tank1.png', 100, 10)
 
     size = width, height = 700, 700
     screen = pygame.display.set_mode(size)
 
-    create_map()
+    create_map(screen)
 
     running = True
     fps = 120
 
-    bonus = False
+    all_bonus = pygame.sprite.Group()
 
     gov_no = 0
     button = False
@@ -643,14 +648,18 @@ if __name__ == '__main__':
         Ибо Твое есть Царство и сила и слава во веки.
         Энтер.
     '''
-    enemys.append(Enemy(20, 20, 10))
+    enemys.append(Enemy(50, 50, 15))
+    print(enemys)
     while running:
+        print(enemys)
         screen.fill(pygame.Color('gray'))
         screen.blit(frame, (0, 0))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                pygame.mouse.set_visible(True)
+                return 1
+
 
             if event.type == RECHARGE:
                 if tank.max_ammunition != tank.ammunition:
@@ -695,20 +704,20 @@ if __name__ == '__main__':
             sound1.play()
             button = False
 
-        create_map()
+        create_map(screen)
 
         if tank.hp <= 0:
-            running = False
+            pygame.mouse.set_visible(True)
+            return 1
         screen.blit(tank.tank, tank.get_pos())
 
 
         all_sprites.draw(screen)
         all_sprites.update()
-
         all_bonus.draw(screen)
         all_bonus.update()
 
-        create_leaves()
+        create_leaves(screen)
         text = font.render(str(tank.hp) + '/' + str(tank.max_hp), True, pygame.Color('red'))
         screen.blit(text, (100, 10))
         text = font.render(str(tank.ammunition) + '/' + str(tank.max_ammunition), True, pygame.Color('brown'))
@@ -719,3 +728,4 @@ if __name__ == '__main__':
 
 
         pygame.display.flip()
+
