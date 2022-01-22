@@ -1,6 +1,5 @@
 import pygame
-import os
-import main
+
 
 
 def start():
