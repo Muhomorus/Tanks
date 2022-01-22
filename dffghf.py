@@ -29,11 +29,6 @@ class Board:
         pos1_1 = (51, 11, 30, 30)
         pygame.draw.rect(screen, (0, 255, 0), pos1, 1)
         screen.blit(load_image("wall2.png"), pos1_1)
-        button2 = pygame.Rect(90, 10, 30, 30)
-        pos2 = button2
-        pos2_1 = (91, 11, 30, 30)
-        pygame.draw.rect(screen, (0, 255, 0), pos2, 1)
-        screen.blit(load_image("dfg.png"), pos2_1)
         button3 = pygame.Rect(130, 10, 30, 30)
         pos3 = button3
         pos3_1 = (131, 11, 30, 30)
@@ -44,7 +39,7 @@ class Board:
         pos4_1 = (171, 11, 30, 30)
         pygame.draw.rect(screen, (0, 255, 0), pos4, 1)
         screen.blit(load_image("wall4.png"), pos4_1)
-        return button, button2, button3, button4
+        return button, button3, button4
 
     def render_1(self, screen):
         for i in range(self.width):
@@ -56,8 +51,6 @@ class Board:
             for j in range(self.height):
                 pos = (self.top + self.cell_size * i + 1, self.left + self.cell_size * j + 1,
                        self.cell_size - 2, self.cell_size - 2)
-                if self.colour[j][i] == 1:
-                    screen.blit(load_image("dfg.png"), pos)
                 if self.colour[j][i] == 2:
                     screen.blit(load_image("wall2.png"), pos)
                 if self.colour[j][i] == 3:
@@ -88,30 +81,7 @@ class Board:
 
     def on_click(self, cell_cords, name):
         if cell_cords:
-            if name == "dfg.png":
-                if self.colour[cell_cords[1]][cell_cords[0]] == 0:
-                    self.colour[cell_cords[1]][cell_cords[0]] += 1
-                    self.color_for_lox_anton[cell_cords[1] * 3][cell_cords[0] * 3] += 1
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 1][cell_cords[0] * 3] += 1
-                    self.color_for_lox_anton[cell_cords[1] * 3][cell_cords[0] * 3 + 1] += 1
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 1][cell_cords[0] * 3 + 1] += 1
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 2][cell_cords[0] * 3] += 1
-                    self.color_for_lox_anton[cell_cords[1] * 3][cell_cords[0] * 3 + 2] += 1
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 2][cell_cords[0] * 3 + 2] += 1
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 2][cell_cords[0] * 3 + 1] += 1
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 1][cell_cords[0] * 3 + 2] += 1
-                else:
-                    self.colour[cell_cords[1]][cell_cords[0]] = 0
-                    self.color_for_lox_anton[cell_cords[1] * 3][cell_cords[0] * 3] = 0
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 1][cell_cords[0] * 3] = 0
-                    self.color_for_lox_anton[cell_cords[1] * 3][cell_cords[0] * 3 + 1] = 0
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 1][cell_cords[0] * 3 + 1] = 0
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 2][cell_cords[0] * 3] = 0
-                    self.color_for_lox_anton[cell_cords[1] * 3][cell_cords[0] * 3 + 2] = 0
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 2][cell_cords[0] * 3 + 2] = 0
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 2][cell_cords[0] * 3 + 1] = 0
-                    self.color_for_lox_anton[cell_cords[1] * 3 + 1][cell_cords[0] * 3 + 2] = 0
-            elif name == "wall2.png":
+            if name == "wall2.png":
                 if self.colour[cell_cords[1]][cell_cords[0]] == 0:
                     self.colour[cell_cords[1]][cell_cords[0]] += 2
                     self.color_for_lox_anton[cell_cords[1] * 3][cell_cords[0] * 3] += 2
@@ -217,14 +187,10 @@ if __name__ == '__main__':
                     print(1)
                     name = "wall2.png"
                 if board.render(screen)[1].collidepoint(event.pos):
-                    print(2)
-                    name = "dfg.png"
-                    flag1 = False
-                if board.render(screen)[2].collidepoint(event.pos):
                     print(3)
                     name = "wall3.png"
                     flag1 = False
-                if board.render(screen)[3].collidepoint(event.pos):
+                if board.render(screen)[2].collidepoint(event.pos):
                     print(4)
                     name = "wall4.png"
                     flag1 = False
