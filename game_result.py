@@ -1,5 +1,5 @@
 import pygame
-from tt import get_level
+from levels_selection import get_level
 
 
 def men(score, levl, win):

@@ -1,5 +1,7 @@
-import pygame
 import json
+
+import pygame
+
 
 def get_level(number):
     with open('levels.json') as l:

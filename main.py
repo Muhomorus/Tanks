@@ -1,10 +1,10 @@
-from gg import start
+from menu import start
 from game import game
 from pvp import pvp
-from dffghf import red
-from tt import write_level, lvl
+from editor import red
+from levels_selection import write_level, lvl
 from game_result import men
-from pvpend import pvp_end
+from pvp_result import pvp_end
 
 
 stand = 1
