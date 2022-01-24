@@ -2,7 +2,7 @@ from gg import start
 from main import game
 from pvp import pvp
 from dffghf import red
-from tt import lvl, new
+from tt import write_level, lvl
 
 
 stand = 1
@@ -16,6 +16,6 @@ while stand != 0:
         stand = pvp()
     elif stand == 4:
         stand, m1, m2 = red()
-        new(m1, m2)
+        write_level(m1, m2)
     elif stand == 5:
         stand, mp1, mp2 = lvl()
