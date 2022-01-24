@@ -10,7 +10,6 @@ def men(score, level, win):
     screen = pygame.display.set_mode(size)
     screen.fill("brown")
 
-
     if win == 1:
         font = pygame.font.SysFont('', 145)
         screen.blit(font.render('Вы выйграли', True, "pink"), (10, 10))
@@ -26,7 +25,6 @@ def men(score, level, win):
     screen.blit(font.render('Повторить', True, "pink"), (95, 260))
     font = pygame.font.SysFont('', 90)
     screen.blit(font.render('Вернуться в меню', True, "pink"), (75, 410))
-
 
     pygame.display.flip()
     running_for_levels = True
