@@ -204,7 +204,7 @@ screen_rect = (50, 50, 600, 600)
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, speed, direction, design, pos_x, pos_y, *group):
-
+        sound1.play()
         self.speed = speed
         self.direction = direction
         self.image = load_image(design)
@@ -430,6 +430,7 @@ class Bullet_Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x
         self.rect.y = pos_y
+        sound1.play()
         super().__init__(*group)
 
     def update(self):
@@ -622,7 +623,6 @@ def game(m, m1, lvl):
         if button:
             shots += 1
             tank.shot()
-            sound1.play()
             button = False
 
         create_map(screen)

@@ -3,7 +3,7 @@ from game import game
 from pvp import pvp
 from dffghf import red
 from tt import write_level, lvl
-from plaerm import men
+from game_result import men
 from pvpend import pvp_end
 
 
