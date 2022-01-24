@@ -1,5 +1,5 @@
 from gg import start
-from main import game
+from game import game
 from pvp import pvp
 from dffghf import red
 from tt import write_level, lvl
