@@ -2,7 +2,6 @@ import os
 import pygame
 import random
 
-
 NORTH = 0
 WEST = 1
 WEST1 = 3
@@ -15,40 +14,6 @@ def load_image(name):
     fullname = os.path.join('data', name)
     image = pygame.image.load(fullname)
     return image
-
-
-class Board:
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-        self.board = [[0] * width for _ in range(height)]
-        self.left = 50
-        self.top = 50
-        self.cell_size = 30
-
-    def set_view(self, left, top, cell_size):
-        self.left = left
-        self.top = top
-        self.cell_size = cell_size
-
-    def render(self, screen):
-        for i in range(self.width):
-            for j in range(self.height):
-                pygame.draw.rect(screen, (0, 255, 0),
-                                 (self.top + self.cell_size * i, self.left + self.cell_size * j,
-                                  self.cell_size, self.cell_size), 1)
-
-
-    def get_cell(self, mouse_pos):
-        pass
-
-    def on_click(self, cell_cords):
-        pass
-
-    def get_click(self, mouse_pos):
-        cell = self.get_cell(mouse_pos)
-        self.on_click(cell)
-
 
 
 class Tank:
@@ -65,14 +30,12 @@ class Tank:
         self.pos_y = pos_y
         self.tank = load_image(design)
         self.now_shots = []
-        self. max_ammunition = ammunition
+        self.max_ammunition = ammunition
         self.ammunition = ammunition
         self.recharge = recharge
 
-
         self.move_count = 0
         self.rotation = 0
-
 
     def move(self):
         self.move_count += 1
@@ -92,7 +55,7 @@ class Tank:
         return self.pos_x * 10, self.pos_y * 10
 
     def get_rect(self):
-        return (self.pos_x * 10, self.pos_y * 10, 30, 30)
+        return self.pos_x * 10, self.pos_y * 10, 30, 30
 
     def shot(self):
         if self.ammunition != 0:
@@ -154,7 +117,6 @@ class Tank:
                 self.tank = pygame.transform.rotate(self.tank, 90)
                 self.course = SOUTH
 
-
             if self.course == SOUTH and self.turn():
                 self.tank = pygame.transform.rotate(self.tank, 90)
                 self.course = EAST
@@ -214,29 +176,28 @@ class Tank:
         if self.rotation_complete:
             if self.course == NORTH:
                 if ((map[self.pos_y - 1][self.pos_x] in (0, 4)) and
-                    (map[self.pos_y - 1][self.pos_x + 1] in (0, 4)) and
-                    (map[self.pos_y - 1][self.pos_x + 2]  in (0, 4))):
+                        (map[self.pos_y - 1][self.pos_x + 1] in (0, 4)) and
+                        (map[self.pos_y - 1][self.pos_x + 2] in (0, 4))):
                     return True
             elif self.course == SOUTH:
                 if ((map[self.pos_y + 3][self.pos_x] in (0, 4)) and
-                    (map[self.pos_y + 3][self.pos_x + 1] in (0, 4)) and
-                    (map[self.pos_y + 3][self.pos_x + 2] in (0, 4))):
+                        (map[self.pos_y + 3][self.pos_x + 1] in (0, 4)) and
+                        (map[self.pos_y + 3][self.pos_x + 2] in (0, 4))):
                     return True
             elif self.course == EAST:
                 if ((map[self.pos_y][self.pos_x + 3] in (0, 4)) and
-                    (map[self.pos_y + 1][self.pos_x + 3] in (0, 4)) and
-                    (map[self.pos_y + 2][self.pos_x + 3] in (0, 4))):
+                        (map[self.pos_y + 1][self.pos_x + 3] in (0, 4)) and
+                        (map[self.pos_y + 2][self.pos_x + 3] in (0, 4))):
                     return True
             elif self.course == WEST:
                 if ((map[self.pos_y][self.pos_x - 1] in (0, 4)) and
-                    (map[self.pos_y + 1][self.pos_x - 1] in (0, 4)) and
-                    (map[self.pos_y + 2][self.pos_x - 1] in (0, 4))):
+                        (map[self.pos_y + 1][self.pos_x - 1] in (0, 4)) and
+                        (map[self.pos_y + 2][self.pos_x - 1] in (0, 4))):
                     return True
         return False
 
 
 screen_rect = (50, 50, 600, 600)
-
 
 
 class Bullet(pygame.sprite.Sprite):
@@ -251,15 +212,18 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.y = pos_y
         super().__init__(*group)
 
-
     def update(self):
-        if self.direction == NORTH and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
+        if self.direction == NORTH and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][
+                                            self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
             self.rect = self.rect.move(0, -self.speed)
-        elif self.direction == SOUTH and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
+        elif self.direction == SOUTH and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][
+                                              self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
             self.rect = self.rect.move(0, self.speed)
-        elif self.direction == WEST and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
+        elif self.direction == WEST and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][
+                                             self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
             self.rect = self.rect.move(-self.speed, 0)
-        elif self.direction == EAST and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
+        elif self.direction == EAST and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][
+                                             self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
             self.rect = self.rect.move(self.speed, 0)
 
         else:
@@ -268,7 +232,7 @@ class Bullet(pygame.sprite.Sprite):
             x1 = (x * 3) + 5
             y1 = (y * 3) + 5
             if (5 <= x1 < 65) and (5 <= y1 < 65):
-                if (map_for_bild[y][x] == 3):
+                if map_for_bild[y][x] == 3:
                     map_for_bild[y][x] = 0
                     for i in range(3):
                         for j in range(3):
@@ -280,8 +244,6 @@ class Bullet(pygame.sprite.Sprite):
                 i.hp -= 1
                 Detonation(self.rect.x - 70, self.rect.y - 70)
                 self.kill()
-
-
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -298,7 +260,6 @@ class Enemy(pygame.sprite.Sprite):
         self.count = 0
         self.count1 = 0
         self.hp = 2
-        # self.course = None
 
     def update(self):
         self.count += 1
@@ -327,7 +288,6 @@ class Enemy(pygame.sprite.Sprite):
             del enemys[0]
             enemys.append(Enemy(50, 50, 15))
             self.kill()
-
 
     def shot(self):
         if self.course == NORTH:
@@ -358,9 +318,8 @@ class Enemy(pygame.sprite.Sprite):
 
         self.count1 += 1
         if self.count1 % 3 == 0:
-            Bullet_enemy(speed, self.course, design, x, y, all_sprites)
+            Bullet_Enemy(speed, self.course, design, x, y, all_sprites)
         self.count1 += 1
-
 
     def move_north(self):
         if self.course != NORTH:
@@ -435,7 +394,7 @@ class Enemy(pygame.sprite.Sprite):
     def is_move_possibly(self):
         if self.course == NORTH:
             if ((map[self.rect[1] // 10 - 1][self.rect[0] // 10] in (0, 4)) and
-                (map[self.rect[1] // 10 - 1][self.rect[0] // 10 + 1] in (0, 4)) and
+                    (map[self.rect[1] // 10 - 1][self.rect[0] // 10 + 1] in (0, 4)) and
                     (map[self.rect[1] // 10 - 1][self.rect[0] // 10 + 2] in (0, 4))):
                 return True
         elif self.course == SOUTH:
@@ -457,8 +416,7 @@ class Enemy(pygame.sprite.Sprite):
         return False
 
 
-
-class Bullet_enemy(pygame.sprite.Sprite):
+class Bullet_Enemy(pygame.sprite.Sprite):
     def __init__(self, speed, direction, design, pos_x, pos_y, *group):
 
         self.speed = speed
@@ -470,15 +428,18 @@ class Bullet_enemy(pygame.sprite.Sprite):
         self.rect.y = pos_y
         super().__init__(*group)
 
-
     def update(self):
-        if self.direction == NORTH and (map[self.rect.y // 10 + int(bool(self.rect.x % 10))][self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
+        if self.direction == NORTH and (map[self.rect.y // 10 + int(bool(self.rect.x % 10))][
+                                            self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
             self.rect = self.rect.move(0, -self.speed)
-        elif self.direction == SOUTH and (map[self.rect.y // 10 + int(bool(self.rect.x % 10))][self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
+        elif self.direction == SOUTH and (map[self.rect.y // 10 + int(bool(self.rect.x % 10))][
+                                              self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
             self.rect = self.rect.move(0, self.speed)
-        elif self.direction == EAST1 and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
+        elif self.direction == EAST1 and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][
+                                              self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
             self.rect = self.rect.move(-self.speed, 0)
-        elif self.direction == WEST1 and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
+        elif self.direction == WEST1 and (map[self.rect.y // 10 + int(bool(self.rect.x % 10)) - 1][
+                                              self.rect.x // 10 + int(bool(self.rect.x % 10))] in (0, 4)):
             self.rect = self.rect.move(self.speed, 0)
         else:
             Detonation(self.rect.x - 70, self.rect.y - 70)
@@ -487,11 +448,6 @@ class Bullet_enemy(pygame.sprite.Sprite):
             tank.hp -= self.damage
             Detonation(self.rect.x - 70, self.rect.y - 70)
             self.kill()
-
-
-
-
-
 
 
 class Detonation(pygame.sprite.Sprite):
@@ -518,14 +474,10 @@ class Detonation(pygame.sprite.Sprite):
     def update(self):
         self.detonation_count += 1
         if self.detonation_count % 7 == 0:
-
             self.cur_frame = (self.cur_frame + 1) % len(self.frames)
             self.image = self.frames[self.cur_frame]
         if self.cur_frame == 6:
             self.kill()
-
-
-
 
 
 class Bonus(pygame.sprite.Sprite):
@@ -540,7 +492,6 @@ class Bonus(pygame.sprite.Sprite):
         self.rect.x = random.randint(50, 620)
         self.rect.y = random.randint(50, 620)
 
-
     def update(self):
         self.rect = self.rect.move(random.randrange(3) - 1, random.randrange(3) - 1)
         if self.rect.colliderect(tank.get_rect()):
@@ -554,11 +505,11 @@ class Bonus(pygame.sprite.Sprite):
             self.kill()
 
 
-
 wall = load_image('wall-1.png')
 wall2 = load_image('wall2.png')
 wall3 = load_image('wall3.png')
 wall4 = load_image('wall4.png')
+
 
 def create_map(screen):
     for index_i, i in enumerate(map_for_bild):
@@ -577,25 +528,12 @@ def create_leaves(screen):
                 screen.blit(wall4, (index_j * 30 + 50, index_i * 30 + 50))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 frame = load_image('frame.png')
 pygame.init()
 
 sound1 = pygame.mixer.Sound('blast_sound.mp3')
 sound2 = pygame.mixer.Sound('blast_sound1.mp3')
+
 
 def game(m, m1):
     global enemys, tank, all_bonus, all_sprites, map, map_for_bild
@@ -609,7 +547,7 @@ def game(m, m1):
     pygame.init()
     tank = Tank(10, 10, 100, 2, 'tank1.png', 100, 10)
 
-    size = width, height = 700, 700
+    size = 700, 700
     screen = pygame.display.set_mode(size)
 
     create_map(screen)
@@ -629,20 +567,7 @@ def game(m, m1):
 
     clock = pygame.time.Clock()
     font = pygame.font.Font(None, 50)
-    ''''
-        C наш, сущий в памяти!
-        да компилируется код Твой;
-        да приидет царствие Софта Твоего;
-        да будут действительны указатели Твои
-        и в ОЗУ, как на жестком диске;
-        массив наш насущный подавай нам на каждый день;
-        и прости нам варнинги наши,
-        как и мы избавляемся от ошибок наших;
-        и не введи нас в бесконечный цикл,
-        но избавь нас от винды.
-        Ибо Твое есть Царство и сила и слава во веки.
-        Энтер.
-    '''
+
     enemys.append(Enemy(50, 50, 15))
     while running:
         screen.fill(pygame.Color('gray'))
@@ -652,7 +577,6 @@ def game(m, m1):
             if event.type == pygame.QUIT:
                 pygame.mouse.set_visible(True)
                 return 1
-
 
             if event.type == RECHARGE:
                 if tank.max_ammunition != tank.ammunition:
@@ -679,7 +603,6 @@ def game(m, m1):
                 if event.key == pygame.K_SPACE:
                     button = True
 
-
         if gov_no == 100:
             tank.move_east()
 
@@ -704,7 +627,6 @@ def game(m, m1):
             return 1
         screen.blit(tank.tank, tank.get_pos())
 
-
         all_sprites.draw(screen)
         all_sprites.update()
         all_bonus.draw(screen)
@@ -718,6 +640,5 @@ def game(m, m1):
 
         clock.tick(fps)
         pygame.mouse.set_visible(False)
-
 
         pygame.display.flip()
