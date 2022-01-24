@@ -24,19 +24,19 @@ class Board:
         self.cell_size = cell_size
 
     def render(self, screen):
-        button = pygame.Rect(50, 10, 30, 30)
+        button = pygame.Rect(90, 10, 30, 30)
         pos1 = button
-        pos1_1 = (51, 11, 30, 30)
+        pos1_1 = (90, 10, 30, 30)
         pygame.draw.rect(screen, (0, 255, 0), pos1, 1)
         screen.blit(load_image("wall2.png"), pos1_1)
         button3 = pygame.Rect(130, 10, 30, 30)
         pos3 = button3
-        pos3_1 = (131, 11, 30, 30)
+        pos3_1 = (130, 10, 30, 30)
         pygame.draw.rect(screen, (0, 255, 0), pos3, 1)
         screen.blit(load_image("wall3.png"), pos3_1)
         button4 = pygame.Rect(170, 10, 30, 30)
         pos4 = button4
-        pos4_1 = (171, 11, 30, 30)
+        pos4_1 = (170, 10, 30, 30)
         pygame.draw.rect(screen, (0, 255, 0), pos4, 1)
         screen.blit(load_image("wall4.png"), pos4_1)
         return button, button3, button4
@@ -49,8 +49,8 @@ class Board:
                                   self.cell_size, self.cell_size), 1)
         for i in range(self.width):
             for j in range(self.height):
-                pos = (self.top + self.cell_size * i + 1, self.left + self.cell_size * j + 1,
-                       self.cell_size - 2, self.cell_size - 2)
+                pos = (self.top + self.cell_size * i, self.left + self.cell_size * j,
+                       self.cell_size, self.cell_size)
                 if self.colour[j][i] == 2:
                     screen.blit(load_image("wall2.png"), pos)
                 if self.colour[j][i] == 3:
@@ -194,7 +194,7 @@ def red():
         screen.fill(pygame.Color('purple'))
 
         pygame.draw.rect(screen, (0, 100, 0), pygame.Rect(500, 10, 110, 30), 2)
-        screen.blit(font.render('Сохранить и выйти', True, "pink"), (505, 15))
+        screen.blit(font.render('Сохранить и выйти', True, "pink"), (505, 20))
 
         board.render(screen)
         board.render_1(screen)

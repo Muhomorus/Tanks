@@ -508,7 +508,7 @@ def pvp():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.mouse.set_visible(True)
-                return 1
+                return 1, None
 
             if event.type == MYEVENTTYPE:
                 if tank.max_ammunition != tank.ammunition:
