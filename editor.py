@@ -53,7 +53,7 @@ class Board:
                 if self.colour[j][i] == 4:
                     screen.blit(load_image("wall4.png"), pos)
 
-    def fffffdfffdffddd(self):
+    def map_re(self):
         jo = []
         for i in range(5):
             jo.append([-1 for _ in range(70)])
@@ -168,10 +168,10 @@ def red():
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return 1, board.fffffdfffdffddd(), board.colour
+                return 1, board.map_re(), board.colour
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.Rect(500, 10, 100, 30).collidepoint(event.pos):
-                    return 1, board.fffffdfffdffddd(), board.colour
+                    return 1, board.map_re(), board.colour
                 if board.render(screen)[0].collidepoint(event.pos):
                     flag1 = False
                     name = "wall2.png"

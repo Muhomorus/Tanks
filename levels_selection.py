@@ -3,8 +3,8 @@ import pygame
 
 
 def get_level(number):
-    with open('levels.json') as l:
-        data = dict(json.load(l))
+    with open('levels.json') as le:
+        data = dict(json.load(le))
     return data[number][0], data[number][1]
 
 
@@ -12,8 +12,8 @@ def write_level(m, m1):
     with open('levels.json') as levels:
         data = dict(json.load(levels))
         data['4'] = (m, m1)
-    with open('levels.json', 'w') as lvl:
-        json.dump(data, lvl)
+    with open('levels.json', 'w') as lv:
+        json.dump(data, lv)
 
 
 def lvl():

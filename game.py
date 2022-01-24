@@ -199,9 +199,6 @@ class Tank:
         return False
 
 
-screen_rect = (50, 50, 600, 600)
-
-
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, speed, direction, design, pos_x, pos_y, *group):
         sound1.play()
@@ -234,14 +231,14 @@ class Bullet(pygame.sprite.Sprite):
             x1 = (x * 3) + 5
             y1 = (y * 3) + 5
             if (5 <= x1 < 65) and (5 <= y1 < 65):
-                if map_for_bild[y][x] == 3:
-                    map_for_bild[y][x] = 0
+                if map_for_build[y][x] == 3:
+                    map_for_build[y][x] = 0
                     for i in range(3):
                         for j in range(3):
                             map[y1 + i][x1 + j] = 0
             Detonation(self.rect.x - 70, self.rect.y - 70)
             self.kill()
-        for index, i in enumerate(enemys):
+        for index, i in enumerate(enemies):
             if self.rect.colliderect(i.rect):
                 i.hp -= 1
                 Detonation(self.rect.x - 70, self.rect.y - 70)
@@ -288,9 +285,9 @@ class Enemy(pygame.sprite.Sprite):
                             self.shot()
         if self.hp == 0:
             kills += 1
-            enemys[0].kill()
-            del enemys[0]
-            enemys.append(Enemy(50, 50, 15))
+            enemies[0].kill()
+            del enemies[0]
+            enemies.append(Enemy(50, 50, 15))
             self.kill()
 
     def shot(self):
@@ -506,30 +503,28 @@ class Bonus(pygame.sprite.Sprite):
                 tank.speed -= 5
             elif self.type == 1:
                 tank.ammunition += 20
-            print('БОНУС')
             self.kill()
 
 
-wall = load_image('wall-1.png')
 wall2 = load_image('wall2.png')
 wall3 = load_image('wall3.png')
 wall4 = load_image('wall4.png')
 
 
 def create_map(screen):
-    for index_i, i in enumerate(map_for_bild):
+    for index_i, i in enumerate(map_for_build):
         for index_j, j in enumerate(i):
-            if map_for_bild[index_i][index_j] == 2:
+            if map_for_build[index_i][index_j] == 2:
                 screen.blit(wall2, (index_j * 30 + 50, index_i * 30 + 50))
 
-            if map_for_bild[index_i][index_j] == 3:
+            if map_for_build[index_i][index_j] == 3:
                 screen.blit(wall3, (index_j * 30 + 50, index_i * 30 + 50))
 
 
 def create_leaves(screen):
-    for index_i, i in enumerate(map_for_bild):
+    for index_i, i in enumerate(map_for_build):
         for index_j, j in enumerate(i):
-            if map_for_bild[index_i][index_j] == 4:
+            if map_for_build[index_i][index_j] == 4:
                 screen.blit(wall4, (index_j * 30 + 50, index_i * 30 + 50))
 
 
@@ -541,15 +536,15 @@ sound2 = pygame.mixer.Sound('blast_sound1.mp3')
 
 
 def game(m, m1, lvl):
-    global enemys, tank, all_bonus, all_sprites, map, map_for_bild, kills
+    global enemies, tank, all_bonus, all_sprites, map, map_for_build, kills
     pygame.display.set_caption('Танки')
 
     map = m
-    map_for_bild = m1
+    map_for_build = m1
     all_sprites = pygame.sprite.Group()
     all_bonus = pygame.sprite.Group()
-    enemys = []
-    for i in enemys:
+    enemies = []
+    for i in enemies:
         i.kill()
     pygame.init()
     tank = Tank(10, 10, 100, 2, 'tank1.png', 100, 10)
@@ -575,7 +570,7 @@ def game(m, m1, lvl):
     clock = pygame.time.Clock()
     font = pygame.font.Font(None, 50)
     shots = 0
-    enemys.append(Enemy(50, 50, 15))
+    enemies.append(Enemy(50, 50, 15))
     while running:
         screen.fill(pygame.Color('gray'))
         screen.blit(frame, (0, 0))
@@ -635,6 +630,7 @@ def game(m, m1, lvl):
         screen.blit(tank.tank, tank.get_pos())
 
         if kills == 10:
+            pygame.mouse.set_visible(True)
             return 6, str((kills + shots) * 1127), lvl, 1
 
         all_sprites.draw(screen)

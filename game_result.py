@@ -2,7 +2,7 @@ import pygame
 from levels_selection import get_level
 
 
-def men(score, levl, win):
+def men(score, level, win):
     pygame.init()
     pygame.display.set_caption('Танки')
 
@@ -36,6 +36,6 @@ def men(score, levl, win):
                 return 1, None, None
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.Rect(90, 250, 520, 120).collidepoint(event.pos):
-                    return 2, get_level(levl)[0], get_level(levl)[1]
+                    return 2, get_level(level)[0], get_level(level)[1]
                 if pygame.Rect(60, 400, 580, 90).collidepoint(event.pos):
                     return 1, None, None
