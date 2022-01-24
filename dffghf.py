@@ -58,8 +58,6 @@ class Board:
                 if self.colour[j][i] == 4:
                     screen.blit(load_image("wall4.png"), pos)
 
-
-
     def fffffdfffdffddd(self):
         jo = []
         for i in range(5):
@@ -155,7 +153,7 @@ class Board:
         self.on_click(cell, name)
 
 
-def load_image(name, colorkey=None):
+def load_image(name):
     fullname = os.path.join('data', name)
     image = pygame.image.load(fullname)
     return image
@@ -169,12 +167,17 @@ def red():
     board = Board(20, 20)
     running = True
     name = False
+    font = pygame.font.SysFont('', 15)
+
+
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return 1, board.fffffdfffdffddd(), board.colour
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.Rect(500, 10, 100, 30).collidepoint(event.pos):
+                    return 1, board.fffffdfffdffddd(), board.colour
                 if board.render(screen)[0].collidepoint(event.pos):
                     flag1 = False
                     name = "wall2.png"
@@ -189,6 +192,10 @@ def red():
                 else:
                     board.get_click(event.pos, name)
         screen.fill(pygame.Color('purple'))
+
+        pygame.draw.rect(screen, (0, 100, 0), pygame.Rect(500, 10, 110, 30), 2)
+        screen.blit(font.render('Сохранить и выйти', True, "pink"), (505, 15))
+
         board.render(screen)
         board.render_1(screen)
         pygame.display.flip()
