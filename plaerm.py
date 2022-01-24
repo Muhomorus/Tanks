@@ -39,5 +39,3 @@ def men(score, levl, win):
                     return 2, get_level(levl)[0], get_level(levl)[1]
                 if pygame.Rect(60, 400, 580, 90).collidepoint(event.pos):
                     return 1, None, None
-
-
