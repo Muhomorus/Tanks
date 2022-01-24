@@ -542,6 +542,8 @@ sound2 = pygame.mixer.Sound('blast_sound1.mp3')
 
 def game(m, m1, lvl):
     global enemys, tank, all_bonus, all_sprites, map, map_for_bild, kills
+    pygame.display.set_caption('Танки')
+
     map = m
     map_for_bild = m1
     all_sprites = pygame.sprite.Group()
@@ -562,7 +564,7 @@ def game(m, m1, lvl):
 
     all_bonus = pygame.sprite.Group()
 
-    gov_no = 0
+    now_press = 0
     button = False
 
     RECHARGE = pygame.USEREVENT + 1
@@ -594,30 +596,30 @@ def game(m, m1, lvl):
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
-                    gov_no = event.key
+                    now_press = event.key
                 elif event.key == pygame.K_a:
-                    gov_no = event.key
+                    now_press = event.key
                 elif event.key == pygame.K_s:
-                    gov_no = event.key
+                    now_press = event.key
                 elif event.key == pygame.K_d:
-                    gov_no = event.key
+                    now_press = event.key
 
             if event.type == pygame.KEYUP:
-                if event.key == gov_no:
-                    gov_no = 0
+                if event.key == now_press:
+                    now_press = 0
                 if event.key == pygame.K_SPACE:
                     button = True
 
-        if gov_no == 100:
+        if now_press == 100:
             tank.move_east()
 
-        if gov_no == 115:
+        if now_press == 115:
             tank.move_south()
 
-        if gov_no == 97:
+        if now_press == 97:
             tank.move_west()
 
-        if gov_no == 119:
+        if now_press == 119:
             tank.move_north()
 
         if button:

@@ -1,11 +1,10 @@
 import pygame
 
 
-
 def start():
 
     pygame.init()
-    pygame.display.set_caption('q1')
+    pygame.display.set_caption('Танки')
     running_for_main_window = True
     size = 700, 500
     screen = pygame.display.set_mode(size)

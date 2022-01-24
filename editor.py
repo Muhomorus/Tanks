@@ -157,6 +157,7 @@ def load_image(name):
 def red():
     flag1 = True
     pygame.init()
+    pygame.display.set_caption('Танки')
     size = 700, 700
     screen = pygame.display.set_mode(size)
     board = Board(20, 20)

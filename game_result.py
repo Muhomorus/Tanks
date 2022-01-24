@@ -4,7 +4,8 @@ from levels_selection import get_level
 
 def men(score, levl, win):
     pygame.init()
-    pygame.display.set_caption('q1')
+    pygame.display.set_caption('Танки')
+
     size = 700, 570
     screen = pygame.display.set_mode(size)
     screen.fill("brown")

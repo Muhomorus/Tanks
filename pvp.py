@@ -478,6 +478,7 @@ sound2 = pygame.mixer.Sound('blast_sound1.mp3')
 def pvp():
     global tank, tank2, all_sprites
     pygame.init()
+    pygame.display.set_caption('Танки')
 
     tank = Tank(7, 10, 100, 2, 'tank1.png', 100, 10, 1)
     tank2 = Tank(7, 10, 100, 2, 'tank.png', 100, 10, 2, pos_x=50, pos_y=50)
@@ -488,10 +489,10 @@ def pvp():
     running = True
     fps = 120
 
-    gov_no = 0
+    now_press1 = 0
     button = False
 
-    gov_no2 = 0
+    now_press2 = 0
     button2 = False
 
     MYEVENTTYPE = pygame.USEREVENT + 1
@@ -518,50 +519,50 @@ def pvp():
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
-                    gov_no = event.key
+                    now_press1 = event.key
                 elif event.key == pygame.K_a:
-                    gov_no = event.key
+                    now_press1 = event.key
                 elif event.key == pygame.K_s:
-                    gov_no = event.key
+                    now_press1 = event.key
                 elif event.key == pygame.K_d:
-                    gov_no = event.key
+                    now_press1 = event.key
 
                 if event.key == pygame.K_UP:
-                    gov_no2 = event.key
+                    now_press2 = event.key
                 if event.key == pygame.K_LEFT:
-                    gov_no2 = event.key
+                    now_press2 = event.key
                 if event.key == pygame.K_DOWN:
-                    gov_no2 = event.key
+                    now_press2 = event.key
                 if event.key == pygame.K_RIGHT:
-                    gov_no2 = event.key
+                    now_press2 = event.key
 
             elif event.type == pygame.KEYUP:
-                if event.key == gov_no:
-                    gov_no = 0
-                if event.key == gov_no2:
-                    gov_no2 = 0
+                if event.key == now_press1:
+                    now_press1 = 0
+                if event.key == now_press2:
+                    now_press2 = 0
 
                 if event.key == pygame.K_SPACE:
                     button = True
                 if event.key == pygame.K_l:
                     button2 = True
 
-        if gov_no == 100:  # D
+        if now_press1 == 100:  # D
             tank.move_west()
-        elif gov_no == 115:  # S
+        elif now_press1 == 115:  # S
             tank.move_south()
-        elif gov_no == 97:  # A
+        elif now_press1 == 97:  # A
             tank.move_east()
-        elif gov_no == 119:  # W
+        elif now_press1 == 119:  # W
             tank.move_north()
 
-        if gov_no2 == 1073741903:  # D
+        if now_press2 == 1073741903:  # D
             tank2.move_west()
-        elif gov_no2 == 1073741905:  # S
+        elif now_press2 == 1073741905:  # S
             tank2.move_south()
-        elif gov_no2 == 1073741904:  # A
+        elif now_press2 == 1073741904:  # A
             tank2.move_east()
-        elif gov_no2 == 1073741906:  # W
+        elif now_press2 == 1073741906:  # W
             tank2.move_north()
 
         if button:  # рисование пули
