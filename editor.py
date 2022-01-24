@@ -2,11 +2,6 @@ import pygame
 import os
 
 
-pygame.init()
-size = width, height = 700, 700
-screen = pygame.display.set_mode(size)
-
-
 class Board:
     def __init__(self, width, height):
         self.width = width
@@ -168,8 +163,6 @@ def red():
     running = True
     name = False
     font = pygame.font.SysFont('', 15)
-
-
 
     while running:
         for event in pygame.event.get():
