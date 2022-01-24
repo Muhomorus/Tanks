@@ -18,15 +18,16 @@ def levelis(q):
     if q == 3:
         return lev_dict[3]
 
+
 def new(m, m1):
     lev_dict[4] = (m, m1)
+
 
 def lvl():
     pygame.init()
     pygame.display.set_caption('q1')
     size = 700, 570
     screen = pygame.display.set_mode(size)
-
 
     font = pygame.font.SysFont('', 145)
     screen.fill("purple")
@@ -54,8 +55,3 @@ def lvl():
                     return 2, lev_dict[3][0], lev_dict[3][1]
                 if pygame.Rect(170, 440, 520, 120).collidepoint(event.pos):
                     return 2, lev_dict[4][0], lev_dict[4][1]
-
-
-
-
-
