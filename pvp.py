@@ -578,15 +578,13 @@ def pvp():
         if tank.hp > 0:
             screen.blit(tank.tank, tank.get_pos())
         else:
-            print('ПОБЕДТЛ ИГРОК 2')
             pygame.mouse.set_visible(True)
-            return 1
+            return 7, 2
         if tank2.hp > 0:
             screen.blit(tank2.tank, tank2.get_pos())
         else:
-            print('ПОБЕДТЛ ИГРОК 1 ')
             pygame.mouse.set_visible(True)
-            return 1
+            return 7, 1
 
         all_sprites.draw(screen)
         all_sprites.update()

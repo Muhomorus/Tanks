@@ -580,7 +580,7 @@ def game(m, m1, lvl):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.mouse.set_visible(True)
-                return 1
+                return 1, None, None, None
 
             if event.type == RECHARGE:
                 if tank.max_ammunition != tank.ammunition:

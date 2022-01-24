@@ -39,7 +39,7 @@ def lvl():
     while running_for_levels:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return 1
+                return 1, None, None
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.Rect(10, 10, 520, 120).collidepoint(event.pos):
                     return 2, get_level('1')[0], get_level('1')[1], '1'
