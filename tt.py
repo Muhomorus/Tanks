@@ -42,10 +42,10 @@ def lvl():
                 return 1
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.Rect(10, 10, 520, 120).collidepoint(event.pos):
-                    return 2, get_level('1')[0], get_level('1')[1]
+                    return 2, get_level('1')[0], get_level('1')[1], '1'
                 if pygame.Rect(170, 160, 520, 120).collidepoint(event.pos):
-                    return 2, get_level('2')[0], get_level('2')[1]
+                    return 2, get_level('2')[0], get_level('2')[1], '2'
                 if pygame.Rect(10, 300, 520, 120).collidepoint(event.pos):
-                    return 2, get_level('3')[0], get_level('3')[1]
+                    return 2, get_level('3')[0], get_level('3')[1], '3'
                 if pygame.Rect(170, 440, 520, 120).collidepoint(event.pos):
-                    return 2, get_level('4')[0], get_level('4')[1]
+                    return 2, get_level('4')[0], get_level('4')[1], '4'

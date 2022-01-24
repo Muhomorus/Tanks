@@ -9,6 +9,8 @@ SOUTH = 2
 EAST = 3
 EAST1 = 1
 
+kills = 0
+
 
 def load_image(name):
     fullname = os.path.join('data', name)
@@ -262,6 +264,7 @@ class Enemy(pygame.sprite.Sprite):
         self.hp = 2
 
     def update(self):
+        global kills
         self.count += 1
         if self.count % 10 == 0:
             if self.rect[1] != tank.get_pos()[-1] and not self.rect.colliderect(tank.get_rect()):
@@ -284,6 +287,7 @@ class Enemy(pygame.sprite.Sprite):
                         if self.rect[1] == tank.get_pos()[-1]:
                             self.shot()
         if self.hp == 0:
+            kills += 1
             enemys[0].kill()
             del enemys[0]
             enemys.append(Enemy(50, 50, 15))
@@ -535,8 +539,8 @@ sound1 = pygame.mixer.Sound('blast_sound.mp3')
 sound2 = pygame.mixer.Sound('blast_sound1.mp3')
 
 
-def game(m, m1):
-    global enemys, tank, all_bonus, all_sprites, map, map_for_bild
+def game(m, m1, lvl):
+    global enemys, tank, all_bonus, all_sprites, map, map_for_bild, kills
     map = m
     map_for_bild = m1
     all_sprites = pygame.sprite.Group()
@@ -567,7 +571,7 @@ def game(m, m1):
 
     clock = pygame.time.Clock()
     font = pygame.font.Font(None, 50)
-
+    shots = 0
     enemys.append(Enemy(50, 50, 15))
     while running:
         screen.fill(pygame.Color('gray'))
@@ -616,6 +620,7 @@ def game(m, m1):
             tank.move_north()
 
         if button:
+            shots += 1
             tank.shot()
             sound1.play()
             button = False
@@ -624,8 +629,11 @@ def game(m, m1):
 
         if tank.hp <= 0:
             pygame.mouse.set_visible(True)
-            return 1
+            return 6, str(shots // (kills + 3) * 500), lvl, 2
         screen.blit(tank.tank, tank.get_pos())
+
+        if kills == 10:
+            return 6, str((kills + shots) * 1127), lvl, 1
 
         all_sprites.draw(screen)
         all_sprites.update()
